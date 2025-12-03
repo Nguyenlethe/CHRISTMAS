@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Christmas Division 2 — Banner</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --red: #b3001b00;
+        --red-dark: #66000f;
+        --gold: #ffd166;
+        --white: #fff;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Mountains of Christmas", cursive;
+      }
+
+      body {
+        background: linear-gradient(180deg, var(--red), var(--red-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .banner-content {
+        position: absolute;
+        inset: 0;
+      }
+
+      .bg-layer {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
+      }
+      .bg-layer.active {
+        opacity: 1;
+      }
+
+      .banner {
+        width: 100vw;
+        height: 100vh;
+        background: #00000066;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        animation: fadeIn 0.9s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      h1 {
+        font-size: 7vw;
+        color: var(--white);
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        margin: 0;
+        letter-spacing: 2px;
+        font-weight: 800;
+      }
+
+      h2 {
+        font-size: 3vw;
+        margin-top: -35px;
+        color: var(--gold);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vw;
+        margin-bottom: 20px;
+      }
+
+      /* Snow */
+      .snow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .snow span {
+        position: absolute;
+        top: -10px;
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0.9;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-10vh);
+        }
+        100% {
+          transform: translateY(110vh);
+        }
+      }
+
+      /* Button */
+      #draw-btn {
+        margin-top: 3vh;
+        padding: 1.2vh 3vw;
+        font-size: 2vw;
+        font-family: "Mountains of Christmas", cursive;
+        border: none;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #ffe9a3, #ffcc4d, #ffd86b);
+        color: #5a3a00;
+        font-weight: 800;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      }
+
+      #draw-btn:hover {
+        transform: scale(1.06);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        filter: brightness(1.08);
+      }
+
+      #winner {
+        margin-top: 2vh;
+        font-size: 2.4vw;
+        color: var(--gold);
+        font-weight: 700;
+        text-shadow: 0 0 12px rgba(255, 220, 100, 0.55),
+          0 0 22px rgba(255, 200, 80, 0.35);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="banner-content"></div>
+
+    <div class="banner">
+      <div class="snow"></div>
+
+      <div class="text-content">
+        <h1>CHRISTMAS DIVISION 2</h1>
+        <!-- 🎄 Navigation Controls -->
+        <h2>
+          <span id="tree-left" style="cursor: pointer; user-select: none"
+            >🎄</span
+          >
+          <span id="title-center">Merry Christmas 2024</span>
+          <span id="tree-right" style="cursor: pointer; user-select: none"
+            >🎄</span
+          >
+        </h2>
+      </div>
+
+      <!-- Lucky Draw Button -->
+      <button id="draw-btn">🎁 Lucky Draw 🎁</button>
+      <div id="winner"></div>
+
+    </div>
+
+    <script>
+      /* ============================
+          USER LIST (30 participants)
+      ============================ */
+      const users = [
+        "Alice",
+        "Bob",
+        "Charlie",
+        "David",
+        "Eva",
+        "Frank",
+        "Grace",
+        "Hannah",
+        "Ian",
+        "Jack",
+        "Karen",
+        "Leo",
+        "Mia",
+        "Nina",
+        "Oscar",
+        "Paul",
+        "Quincy",
+        "Rita",
+        "Steve",
+        "Tina",
+        "Uma",
+        "Victor",
+        "Wendy",
+        "Xander",
+        "Yara",
+        "Zack",
+        "Lily",
+        "Ethan",
+        "Sophia",
+        "Mason",
+      ];
+
+      let index = 0; // Always cycles through users array — no history tracking
+
+      const winnerDiv = document.getElementById("winner");
+      const titleCenter = document.getElementById("title-center");
+
+      /* ============================
+          LUCKY DRAW BUTTON
+      ============================ */
+      document.getElementById("draw-btn").addEventListener("click", () => {
+        winnerDiv.textContent = "🎉 " + users[index] + " 🎉";
+        index++;
+      });
+
+      /* ============================
+          PREVIOUS ← (Left tree navigation)
+      ============================ */
+      document.getElementById("tree-left").addEventListener("click", () => {
+        index--;
+        if (index < 0) index = users.length - 1;
+        winnerDiv.textContent = "🎉 " + users[index] + " 🎉";
+      });
+
+      /* ============================
+          NEXT → (Right tree navigation)
+      ============================ */
+      document.getElementById("tree-right").addEventListener("click", () => {
+        index++;
+        if (index >= users.length) index = 0;
+        winnerDiv.textContent = "🎉 " + users[index] + " 🎉";
+      });
+
+      /* ============================
+          SNOW
+      ============================ */
+      const snow = document.querySelector(".snow");
+      for (let i = 0; i < 180; i++) {
+        const s = document.createElement("span");
+        const size = Math.random() * 6 + 4;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.left = Math.random() * 100 + "%";
+        s.style.animationDuration = 6 + Math.random() * 6 + "s";
+        s.style.opacity = 0.5 + Math.random() * 0.5;
+        snow.appendChild(s);
+      }
+
+      /* ============================
+          BACKGROUND CROSSFADE
+      ============================ */
+      const banner = document.querySelector(".banner-content");
+      const images = [
+        "../BANNER/imgs/santa2.png",
+        "../BANNER/imgs/santa.png",
+        "../BANNER/imgs/santa3.png",
+        "../BANNER/imgs/santa4.png",
+        "../BANNER/imgs/santa5.png",
+      ];
+
+      let layer1 = document.createElement("div");
+      layer1.className = "bg-layer active";
+      let layer2 = document.createElement("div");
+      layer2.className = "bg-layer";
+      banner.appendChild(layer1);
+      banner.appendChild(layer2);
+
+      let current = 0;
+      layer1.style.backgroundImage = `url('${images[current]}')`;
+
+      function nextImage() {
+        const nextIndex = (current + 1) % images.length;
+
+        layer2.style.backgroundImage = `url('${images[nextIndex]}')`;
+        layer2.classList.add("active");
+        layer1.classList.remove("active");
+
+        [layer1, layer2] = [layer2, layer1];
+        current = nextIndex;
+      }
+
+      setInterval(nextImage, 16000);
+    </script>
+  </body>
+</html>
