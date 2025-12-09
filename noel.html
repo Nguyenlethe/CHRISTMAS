@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Noel DIVISION 2 — Banner</title>
+    <title>Christmas Division 2 — Banner</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Sacramento&display=swap"
@@ -27,7 +27,7 @@
       }
 
       body {
-        background: linear-gradient(180deg, var(--red), var(--red-dark));
+        background: #0000;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -223,7 +223,7 @@
       <div class="snow"></div>
 
       <div class="text-content">
-        <h1>NOEL DIVISION 2</h1>
+        <h1>CHRISTMAS DIVISION 2</h1>
         <h2>
           <span id="tree-left" style="cursor: pointer; user-select: none"
             >🎄</span
@@ -236,11 +236,10 @@
       </div>
 
       <div class="doc-content">
-        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/login.png" />
-
-        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/pick-task.png" />
-        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/task.png" />
-        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/result.png" />
+        <img class="doc-priview" src="imgs/docs/login.png" />
+        <img class="doc-priview" src="imgs/docs/pick-task.png" />
+        <img class="doc-priview" src="imgs/docs/task.png" />
+        <img class="doc-priview" src="imgs/docs/result.png" />
       </div>
 
       <!-- SPIN BUTTON -->
@@ -251,7 +250,7 @@
     <!-- Background audio + toggle -->
     <audio
       id="bg-audio"
-      src="../CHRISTMAS/audios/LastChristmas.mp3"
+      src="audios/LastChristmas.mp3"
       preload="auto"
       loop
     ></audio>
@@ -291,11 +290,11 @@
       ============================ */
       const banner = document.querySelector(".banner-content");
       const images = [
-        "../CHRISTMAS/imgs/santa2.png",
-        "../CHRISTMAS/imgs/santa.png",
-        "../CHRISTMAS/imgs/santa3.png",
-        "../CHRISTMAS/imgs/santa4.png",
-        "../CHRISTMAS/imgs/santa5.png",
+        "imgs/santa2.png",
+        "imgs/santa.png",
+        "imgs/santa3.png",
+        "imgs/santa4.png",
+        "imgs/santa5.png",
       ];
 
       let layer1 = document.createElement("div");
