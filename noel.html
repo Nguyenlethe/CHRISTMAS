@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Christmas Division 2 — Banner</title>
+    <title>Noel DIVISION 2 — Banner</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Sacramento&display=swap"
@@ -27,7 +27,7 @@
       }
 
       body {
-        background: #000;
+        background: linear-gradient(180deg, var(--red), var(--red-dark));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -52,10 +52,17 @@
         opacity: 1;
       }
 
+      .doc-priview {
+        max-width: 25%;
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+      }
+
       .banner {
         width: 100vw;
         height: 100vh;
-        background: #00000033;
+        background: #0000007b;
         position: relative;
         overflow: hidden;
         display: flex;
@@ -64,6 +71,30 @@
         justify-content: center;
         text-align: center;
         animation: fadeIn 0.9s ease-out;
+      }
+
+      /* Audio toggle button */
+      #audio-toggle {
+        position: fixed;
+        left: 18px;
+        bottom: 18px;
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        border: none;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(4px);
+        z-index: 1200;
+      }
+      #audio-toggle:active {
+        transform: scale(0.98);
       }
 
       @keyframes fadeIn {
@@ -78,7 +109,7 @@
       }
 
       h1 {
-        font-size: 7vw;
+        font-size: 10vw;
         color: var(--white);
         text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         margin: 0;
@@ -87,7 +118,7 @@
       }
 
       h2 {
-        font-size: 3vw;
+        font-size: 4vw;
         margin-top: -35px;
         color: var(--gold);
         display: flex;
@@ -129,14 +160,13 @@
         font-size: 2vw;
         font-family: "Mountains of Christmas", cursive;
         border: none;
+        background: transparent;
+        opacity: 0;
         border-radius: 16px;
-        background: linear-gradient(135deg, #ffe9a3, #ffcc4d, #ffd86b);
-        color: #5a3a00;
         font-weight: 800;
         letter-spacing: 1px;
         cursor: pointer;
-        transition: 0.25s ease;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        display: none;
       }
 
       #draw-btn:hover {
@@ -153,6 +183,36 @@
         text-shadow: 0 0 12px rgba(255, 220, 100, 0.55),
           0 0 22px rgba(255, 200, 80, 0.35);
       }
+
+      .doc-content {
+        display: flex;
+        align-items: start;
+        gap: 40px;
+        padding: 0 40px;
+      }
+
+      #content-toggle {
+        position: fixed;
+        left: 80px; /* đẩy sang phải để nằm cạnh nút âm thanh */
+        bottom: 18px;
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        border: none;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(4px);
+        z-index: 1200;
+      }
+      #content-toggle:active {
+        transform: scale(0.98);
+      }
     </style>
   </head>
 
@@ -163,8 +223,7 @@
       <div class="snow"></div>
 
       <div class="text-content">
-        <h1>CHRISTMAS DIVISION 2</h1>
-        <!-- 🎄 Navigation Controls -->
+        <h1>NOEL DIVISION 2</h1>
         <h2>
           <span id="tree-left" style="cursor: pointer; user-select: none"
             >🎄</span
@@ -176,80 +235,42 @@
         </h2>
       </div>
 
-      <!-- Lucky Draw Button -->
-      <button id="draw-btn">🎁 Lucky Draw 🎁</button>
-      <div id="winner"></div>
+      <div class="doc-content">
+        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/login.png" />
 
+        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/pick-task.png" />
+        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/task.png" />
+        <img class="doc-priview" src="../CHRISTMAS/imgs/docs/result.png" />
+      </div>
+
+      <!-- SPIN BUTTON -->
+      <button id="draw-btn"></button>
+      <div id="winner"></div>
     </div>
 
+    <!-- Background audio + toggle -->
+    <audio
+      id="bg-audio"
+      src="../CHRISTMAS/audios/LastChristmas.mp3"
+      preload="auto"
+      loop
+    ></audio>
+    <button
+      id="audio-toggle"
+      aria-label="Toggle background music"
+      title="Nhạc nền"
+    >
+      🔈
+    </button>
+    <button
+      id="content-toggle"
+      aria-label="Toggle content"
+      title="Ẩn/Hiện nội dung"
+    >
+      👁️
+    </button>
+
     <script>
-      /* ============================
-          USER LIST (30 participants)
-      ============================ */
-      const users = [
-        "Alice",
-        "Bob",
-        "Charlie",
-        "David",
-        "Eva",
-        "Frank",
-        "Grace",
-        "Hannah",
-        "Ian",
-        "Jack",
-        "Karen",
-        "Leo",
-        "Mia",
-        "Nina",
-        "Oscar",
-        "Paul",
-        "Quincy",
-        "Rita",
-        "Steve",
-        "Tina",
-        "Uma",
-        "Victor",
-        "Wendy",
-        "Xander",
-        "Yara",
-        "Zack",
-        "Lily",
-        "Ethan",
-        "Sophia",
-        "Mason",
-      ];
-
-      let index = 0; // Always cycles through users array — no history tracking
-
-      const winnerDiv = document.getElementById("winner");
-      const titleCenter = document.getElementById("title-center");
-
-      /* ============================
-          LUCKY DRAW BUTTON
-      ============================ */
-      document.getElementById("draw-btn").addEventListener("click", () => {
-        winnerDiv.textContent = "🎉 " + users[index] + " 🎉";
-        index++;
-      });
-
-      /* ============================
-          PREVIOUS ← (Left tree navigation)
-      ============================ */
-      document.getElementById("tree-left").addEventListener("click", () => {
-        index--;
-        if (index < 0) index = users.length - 1;
-        winnerDiv.textContent = "🎉 " + users[index] + " 🎉";
-      });
-
-      /* ============================
-          NEXT → (Right tree navigation)
-      ============================ */
-      document.getElementById("tree-right").addEventListener("click", () => {
-        index++;
-        if (index >= users.length) index = 0;
-        winnerDiv.textContent = "🎉 " + users[index] + " 🎉";
-      });
-
       /* ============================
           SNOW
       ============================ */
@@ -270,11 +291,11 @@
       ============================ */
       const banner = document.querySelector(".banner-content");
       const images = [
-        "imgs/santa2.png",
-        "imgs/santa.png",
-        "imgs/santa3.png",
-        "imgs/santa4.png",
-        "imgs/santa5.png",
+        "../CHRISTMAS/imgs/santa2.png",
+        "../CHRISTMAS/imgs/santa.png",
+        "../CHRISTMAS/imgs/santa3.png",
+        "../CHRISTMAS/imgs/santa4.png",
+        "../CHRISTMAS/imgs/santa5.png",
       ];
 
       let layer1 = document.createElement("div");
@@ -299,6 +320,82 @@
       }
 
       setInterval(nextImage, 16000);
+
+      /* ============================
+          AUDIO CONTROL
+      ============================ */
+      const bgAudio = document.getElementById("bg-audio");
+      const audioToggle = document.getElementById("audio-toggle");
+
+      function updateAudioToggle() {
+        if (!bgAudio) return;
+        audioToggle.textContent = bgAudio.paused ? "🔈" : "🔊";
+      }
+
+      audioToggle.addEventListener("click", () => {
+        if (!bgAudio) {
+          console.warn(
+            "No audio element found. Add a file to `audios/` or change the `src`."
+          );
+          return;
+        }
+
+        if (bgAudio.paused) {
+          bgAudio
+            .play()
+            .catch((err) => {
+              console.warn(
+                "Playback prevented by browser autoplay policy:",
+                err
+              );
+            })
+            .finally(updateAudioToggle);
+        } else {
+          bgAudio.pause();
+          updateAudioToggle();
+        }
+      });
+
+      if (bgAudio) {
+        bgAudio.addEventListener &&
+          bgAudio.addEventListener("play", updateAudioToggle);
+        bgAudio.addEventListener &&
+          bgAudio.addEventListener("pause", updateAudioToggle);
+      }
+
+      // initialize button state
+      setTimeout(updateAudioToggle, 50);
+
+      /* ============================
+        CONTENT TOGGLE
+      ============================ */
+      const contentToggle = document.getElementById("content-toggle");
+      const textBlock = document.querySelector(".text-content");
+      const docBlock = document.querySelector(".doc-content");
+
+      let showingText = true; // mặc định đang hiện chữ
+
+      function updateContentToggleIcon() {
+        contentToggle.textContent = showingText ? "👁️" : "🙈"
+      }
+
+      // Bấm nút => đảo qua lại
+      contentToggle.addEventListener("click", () => {
+        showingText = !showingText;
+
+        if (showingText) {
+          textBlock.style.display = "block";
+          docBlock.style.display = "none";
+        } else {
+          textBlock.style.display = "none";
+          docBlock.style.display = "flex";
+        }
+
+        updateContentToggleIcon();
+      });
+
+      docBlock.style.display = "none";
+      updateContentToggleIcon();
     </script>
   </body>
 </html>
